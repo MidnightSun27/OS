@@ -1,0 +1,27 @@
+#!/bin/bash 
+res='' 
+if [ "$1" = "-h" ] || [ "$1" = "--help" ]; 
+then 
+echo "This script will return cleaned PATH" 
+exit 1 
+fi 
+if [[ -n $1 ]]; 
+then 
+dir=$1 
+else 
+dir=$PATH 
+fi 
+IFS=: 
+for fold in $dir 
+do 
+for f in "$fold"/* 
+do 
+if [[ -x "$f" ]]; 
+then 
+res=$res:$fold 
+break 
+fi 
+done 
+done 
+IFS="" 
+echo "$res
